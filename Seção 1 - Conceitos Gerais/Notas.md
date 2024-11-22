@@ -50,7 +50,6 @@ Container de DI (Dependency injection) mantém referências à todos os serviço
 
 
 
-
 ## Outros
 - Níveis de Maturidade de Richardson: classifica APIs com base na aderência e conformidade com o modelo REST. Nível 2 não implementa todas mas ainda é considerada Restful.
 
