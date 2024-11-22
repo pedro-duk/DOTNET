@@ -136,3 +136,25 @@ Quando consultamos entidades usando o EF Core, ele armazena as entidades no cont
 - Recurso poderoso mas adiciona sobrecarga que afeta desempenho
 - Para melhorar: adicionar AsNoTracking()
   - Usar só em consultas somente leitura. Com consultas não rastreadas, não é possível fazer alterações pois não dá pra saber o estado dos objetos.
+
+
+Outras dicas
+ - Nunca retorne todos registros
+ - Nunca retorne objetos relacionados sem aplicar filtro
+
+
+## Tratamento de erro
+### Ambiente de desenvolvimento
+Usa por padrão a página de exceção do desenvolvedor, com informações detalhadas sobre exceções:
+- StackTrace
+- Querystring
+- Cookies
+- Headers
+
+### Ambiente de produção
+Tratamento de erros personalizado com UseExceptionHandler
+- Captura e registra exceções não tratadas
+- Executa novamente o request em um pipeline alternativo usando o caminho indicado (quando response não for iniciado)
+  - Código gerado executa request no caminho /Error
+
+  

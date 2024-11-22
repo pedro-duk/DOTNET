@@ -21,7 +21,19 @@ public class CategoriasController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Categoria>> Get()
     {
-        return _context.Categorias.ToList();
+        // AsNoTracking desabilita o rastreamento, melhorando desempenho
+        // Usar quando é garantido de ser uma consulta somente leitura
+        // return _context.Categorias.AsNoTracking().ToList();
+
+        // Exemplo tratamento de erro try-catch - meio paia
+        try
+        {
+            throw new DataMisalignedException();
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, "problema!");
+        }
     }
 
     [HttpGet("produtos")]
