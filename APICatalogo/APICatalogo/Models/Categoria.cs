@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APICatalogo.Models; // scoped namespaces remove necessidade de abrir/fechar chaves
+
+[Table("Categorias")] // Redundante pois já foi definido assim em appdbcontext, mas ok
 public class Categoria
 {
     public Categoria()

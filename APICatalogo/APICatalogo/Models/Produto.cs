@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APICatalogo.Models;
+
+[Table("Produtos")] // Redundante pois já foi definido assim em appdbcontext, mas ok
 public class Produto
 {
     // Classes anêmicas: possuem somente propriedades

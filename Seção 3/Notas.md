@@ -68,3 +68,13 @@ Atributos:
 - NotMapped - exclui do mapeamento
 - StringLength - tamanho máximo e mínimo do tipo
 - Required - especifica not null
+
+Alternativa mais elegante ao Data Annotations: Fluent API
+
+## Popular tabelas com dados
+Diversas maneiras:
+
+- Incluir manualmente com SQL
+- Usar método OnModelCreating do arquivo de contexto e definir usando propriedade do HasData do EF Core
+- Criar método Estático e definir código para incluir dados usando método AddRange do EF Core
+- Criar migração vazia e usar métodos Up() e Down() definindo nestes métodos as instruções SQL (insert into)
