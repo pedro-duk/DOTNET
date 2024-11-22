@@ -78,3 +78,61 @@ Diversas maneiras:
 - Usar método OnModelCreating do arquivo de contexto e definir usando propriedade do HasData do EF Core
 - Criar método Estático e definir código para incluir dados usando método AddRange do EF Core
 - Criar migração vazia e usar métodos Up() e Down() definindo nestes métodos as instruções SQL (insert into)
+
+
+## Controllers
+[ApiController] decora controladores habilitando recursos como:
+- Requisito de roteamento de atributo;
+- Validação do model state;
+- Inferência de parâmetro bind/source;
+- Inferência de solicitação de dados de várias partes/formulário;
+- Uso de Problem Details para códigos de status de erro.
+
+[Route] especifica um padrão de url para acessar controller ou action
+- `[Route("[Controller]")]` indica que a rota possui mesmo nome do controlador
+
+- `[Route("[Controller]/{action}")]` indica que as rotas vão ser acessadas pelo mesmo nome dos métodos action, exemplo:
+
+```C#
+[Route("[controller]/{action}")] // variável
+public class TesteController : ControllerBase
+{
+
+  [HttpGet]
+  public string get1() {
+    return "get1"
+  }
+
+  [HttpGet]
+  public string get2() {
+    return "get2"
+  }
+}
+
+// Para acessar get1: GET /teste/get1
+// Para acessar get2: GET /teste/get2
+```
+
+## Adicionar controller
+Botão direito na pasta controller > Add > Controller 
+
+## Serialização e Desserialização - referência cíclica
+Acontece quando "A referencia B" e "B referencia A"
+- Numa serialização que A inclua B, o referenceHandler acaba buscando ciclicamente pelas referências.
+- ReferenceHandler: define como o JsonSerializer lida com referências sobre serialização e desserialização
+- Use ReferenceHandler.IgnoreCycles => Ignora o objeto quando um ciclo de referência é detectado 
+
+## Serialização e Desserialização - Propriedades Públicas
+- Todas propriedades públicas são serializadas (até as propriedades de navegação)
+- Para evitar isso:
+  - Método 1: Ignorar propriedades individuais: `[JsonIgnore]` (sempre ignora) ou `[JsonIgnore(Condition = JsonIgnoreCondition.Always)]` (equivalente)
+    - Never (nunca ignora)
+    - WhenWritingDefault (ignora quando for valor nullable com null, ou tipo de valor padrão)
+    - WhenWritingNull (ignora se for tipo de referência null, ou tipo de valor que pode ser anulado com valor null)
+  - Método 2: Ignorar todas (adicionar DefaultIgnoreCondition do JsonSerializerOptions)
+
+## Otimizando o código
+Quando consultamos entidades usando o EF Core, ele armazena as entidades no contexto em cache realizando o tracking/rastreamento das entidades para acompanhar o estado das entidades.
+- Recurso poderoso mas adiciona sobrecarga que afeta desempenho
+- Para melhorar: adicionar AsNoTracking()
+  - Usar só em consultas somente leitura. Com consultas não rastreadas, não é possível fazer alterações pois não dá pra saber o estado dos objetos.
