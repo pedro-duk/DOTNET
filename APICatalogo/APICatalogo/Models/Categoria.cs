@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace APICatalogo.Models; // scoped namespaces remove necessidade de abrir/fechar chaves
 public class Categoria
@@ -10,10 +10,16 @@ public class Categoria
     }
     // prop + tabtab cria propriedades rápido
     // Com nome da entidade + Id no nome, entity framework entende que é chave primária!
+    [Key] // Data Annotation - não é necessário por conta do nome. 
     public int CategoriaId { get; set; }
 
     // Propriedades devem ser nullable, portanto é necessário o "?" em tipos por referência, como strings
+    [Required]
+    [StringLength(80)]
     public string? Nome { get; set; }
+
+    [Required]
+    [StringLength(300)]
     public string? ImagemUrl { get; set; }
 
     // Relacionamento um para muitos - CategoriaId é chave estrangeira em Produtos
